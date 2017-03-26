@@ -140,8 +140,9 @@ void ServoRun()
     p = SERVO.ploc[0] + SERVO.ploc[1]<<8;
     
     servo(SERVO.ploc[0] + (SERVO.ploc[1]<<8));
-    printf("ServoRun\n\r"); 
+    //printf("ServoRun\n\r"); 
 #endif
+    
   }
 
 }

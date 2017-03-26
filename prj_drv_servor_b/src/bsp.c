@@ -145,6 +145,9 @@ void GPIO_Configuration(void)
   /* Configure PD0 (LED1) as output push-pull low (led switched on) */
 #ifdef STM8S003
 
+    /* Initialize I/O in Input Mode with Interrupt for Joystick */
+//  GPIO_Init(GPIOD, GPIO_PIN_4,GPIO_MODE_IN_FL_IT);              //pd4 ÎªÏÂ½µÑØÖÐ¶Ï
+  
 #if 0
   GPIO_Init(GPIOC, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_FAST);//
   GPIO_Init(GPIOD, GPIO_PIN_3|GPIO_PIN_4, GPIO_MODE_IN_PU_NO_IT);     
@@ -428,7 +431,7 @@ void ITC_Configuration()
    ITC_SetSoftwarePriority(ITC_IRQ_TIM4_OVF, ITC_PRIORITYLEVEL_3);
   // ITC_SetSoftwarePriority(ITC_IRQ_UART2_TX, ITC_PRIORITYLEVEL_2);
 #ifdef STM8S003
-   ITC_SetSoftwarePriority(ITC_IRQ_UART1_RX, ITC_PRIORITYLEVEL_2); 
+   //ITC_SetSoftwarePriority(ITC_IRQ_PORTD, ITC_PRIORITYLEVEL_2); 
 #endif    
    
 #ifdef STM8S105
@@ -555,6 +558,20 @@ GETCHAR_PROTOTYPE
   while (UART1_GetFlagStatus(UART1_FLAG_RXNE) == RESET);
     c = UART1_ReceiveData8();
   return (c);
+}
+
+
+static void Tim1_Cfg()
+{
+  
+//TIM2 cfg
+    /* Time base configuration */
+  TIM1_TimeBaseInit(TIM1_PRESCALER_32, SER_FREQ_50Hz);
+  
+  
+  /* TIM2 enable counter */
+  TIM2_Cmd(ENABLE);
+
 }
 
 

@@ -83,6 +83,8 @@ INTERRUPT_HANDLER(AWU_IRQHandler, 1)
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
+  
+  
 }
 
 /**
@@ -107,6 +109,9 @@ INTERRUPT_HANDLER(EXTI_PORTA_IRQHandler, 3)
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
+  
+  
+  
 }
 
 /**
@@ -143,6 +148,10 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
+  if (GPIO_ReadInputPin(GPIOD, GPIO_PIN_4) == 0x00)
+  {
+    DeInit();
+  }
 }
 
 /**

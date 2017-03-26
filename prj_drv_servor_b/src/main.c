@@ -50,6 +50,8 @@ void main(void)
   
   ITC_Configuration();
   
+  
+  
 #ifdef STM8S003
   UART1_Configuration();
 #endif

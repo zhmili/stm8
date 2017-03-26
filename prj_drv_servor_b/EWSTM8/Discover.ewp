@@ -257,11 +257,11 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
-          <state>E:\proj\prj_stm8\STM8S_StdPeriph_Driver\inc</state>
-          <state>E:\proj\prj_stm8\STM8S_StdPeriph_Driver\src</state>
-          <state>E:\proj\prj_stm8\prj_drv_exp\Modbus</state>
-          <state>E:\proj\prj_stm8\prj_drv_exp\inc</state>
-          <state>E:\proj\prj_stm8\prj_drv_exp\src</state>
+          <state>E:\proj\stm8\STM8S_StdPeriph_Driver\inc</state>
+          <state>E:\proj\stm8\STM8S_StdPeriph_Driver\src</state>
+          <state>E:\proj\stm8\prj_drv_exp\Modbus</state>
+          <state>E:\proj\stm8\prj_drv_exp\inc</state>
+          <state>E:\proj\stm8\prj_drv_exp\src</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>

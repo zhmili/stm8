@@ -72,7 +72,7 @@ sr3 = I2C->SR3;
   {		
     I2C->CR2|= I2C_CR2_STOP;  // stop communication - release the lines
     I2C->SR2= 0;					    // clear all error flags
-	}
+  }
 /* More bytes received ? */
   if ((sr1 & (I2C_SR1_RXNE | I2C_SR1_BTF)) == (I2C_SR1_RXNE | I2C_SR1_BTF))
   {
@@ -175,10 +175,9 @@ void I2C_Slave_check_event(void){
 #endif
 
 
-// ************************* I2C init Function  *************************
-
-void Init_I2C (void)
+void DeInit(void)
 {
+
   u8 i;
   #ifdef I2C_slave_7Bits_Address
 	  /* Set I2C registers for 7Bits Address */
@@ -203,6 +202,42 @@ void Init_I2C (void)
         I2C_INF.RxLoc = 0;
         I2C_INF.TxLoc = 0;
         MessageBegin = FALSE;
+
+}
+
+
+
+
+
+
+// ************************* I2C init Function  *************************
+
+void Init_I2C (void)
+{
+        u8 i;
+        #ifdef I2C_slave_7Bits_Address
+	  /* Set I2C registers for 7Bits Address */
+                I2C->CR1 |= 0x01;				// Enable I2C peripheral
+                I2C->CR2 = 0x04;			        // Enable I2C acknowledgement
+		I2C->FREQR = 16; 			        // Set I2C Freq value (16MHz)
+		I2C->OARL = (SLAVE_ADDRESS) ;	                // set slave address to 0x51 (put 0xA2 for the register dues to7bit address) 
+		I2C->OARH = 0x40;		                // Set 7bit address mode
+	#endif
+                
+	#ifdef I2C_slave_10Bits_Address
+          /* Set I2C registers for 10Bits Address */
+	  I2C->CR1 |= 0x01;				        // Enable I2C peripheral
+	  I2C->CR2 = 0x04;					// Enable I2C acknowledgement
+	  I2C->FREQR = 16; 					// Set I2C Freq value (16MHz)
+	  I2C->OARL = (SLAVE_ADDRESS & 0xFF) ;		        // set slave address LSB 
+	  I2C->OARH = 0xC0 | ((SLAVE_ADDRESS & 0x300) >> 7);	// Set 10bits address mode and address MSB
+	#endif
+	
+        I2C->ITR	= 0x07;					// all I2C interrupt enable  
+        
+        I2C_INF.RxLoc = 0;
+        I2C_INF.TxLoc = 0;
+        MessageBegin = FALSE;
      
      for(i = 0; i < MAX_BUFFER; i++)
      {
@@ -210,6 +245,9 @@ void Init_I2C (void)
         I2C_INF.TxBuf[i] = 0x0;
      }
 }
+
+
+
 
 
 
